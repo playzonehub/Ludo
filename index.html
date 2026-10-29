@@ -319,7 +319,7 @@ async function rollDice(){
   const token=chooseAIMove(p,state.canMove);
   if(token!==null) await moveToken(state.turn,token);
  }else{
-  state.waiting=false;
+  state.waiting=true;
   $("rollBtn").disabled=true;
   $("hint").textContent="Tap a glowing token to move it.";
  }
