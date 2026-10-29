@@ -4,576 +4,331 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="theme-color" content="#10172a">
-<meta name="description" content="PlayZoneHub Ludo: play against friends or computer AI.">
-<title>PlayZoneHub Ludo</title>
+<title>PlayZoneHub - Ludo</title>
 <style>
-:root{
-  --bg:#0b1020;--panel:#141d32;--panel2:#1c2841;
-  --text:#f7f9ff;--muted:#aab6d0;--accent:#8b7cff;
-  --red:#ff5268;--green:#24d69b;--yellow:#ffc94f;--blue:#58a0ff;
-}
 *{box-sizing:border-box}
-body{
-  margin:0;min-height:100vh;color:var(--text);
-  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
-  background:radial-gradient(ellipse at top,#202d50 0%,#0b1020 58%);
-}
-button,select{font:inherit}
-button{touch-action:manipulation;cursor:pointer}
-.app{width:min(100%,900px);margin:auto;padding:16px}
-header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
-.brand{display:flex;align-items:center;gap:11px}
-.logo{
- width:46px;height:46px;border-radius:15px;display:grid;place-items:center;
- background:linear-gradient(135deg,#947cff,#4d8dff);
- font-size:25px;box-shadow:0 8px 24px #6555e744
-}
-h1{font-size:clamp(19px,4vw,27px);margin:0;letter-spacing:-.7px}
-.subtitle{font-size:12px;color:var(--muted);margin-top:2px}
-.topbtn,.secondary{
- background:var(--panel2);color:var(--text);border:1px solid #ffffff15;
- border-radius:12px;padding:10px 12px;font-weight:650
-}
-.panel{
- background:#131c30eF;border:1px solid #ffffff12;
- border-radius:20px;padding:15px;margin-bottom:13px;
- box-shadow:0 12px 35px #0002
-}
-.setup{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.field label{display:block;color:var(--muted);font-size:12px;margin-bottom:6px}
-select{
- width:100%;padding:11px;border-radius:11px;border:1px solid #ffffff18;
- background:#202c45;color:white
-}
-.players{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0}
-.player{
- min-width:0;padding:10px 5px;text-align:center;border-radius:13px;
- background:#ffffff06;border:1px solid #ffffff0d;opacity:.58
-}
-.player.active{opacity:1;background:#ffffff10;border-color:#ffffff65;box-shadow:0 0 0 1px #ffffff08}
-.dot{width:11px;height:11px;border-radius:50%;display:inline-block;margin-right:5px}
-.player-name{font-size:12px;font-weight:750}
-.player-meta{font-size:11px;color:var(--muted);margin-top:4px}
-.red{background:var(--red)}.green{background:var(--green)}
-.yellow{background:var(--yellow)}.blue{background:var(--blue)}
-.status{display:flex;align-items:center;gap:10px;min-height:45px}
-.status-icon{
- width:40px;height:40px;border-radius:13px;background:#ffffff0b;
- display:grid;place-items:center;font-size:21px;flex-shrink:0
-}
-.status strong{display:block;font-size:14px}
-.status small{color:var(--muted);font-size:12px}
-.board-wrap{padding:10px;background:linear-gradient(145deg,#1c2842,#10182a);border-radius:23px;border:1px solid #ffffff14}
-canvas{width:100%;height:auto;display:block;aspect-ratio:1;touch-action:manipulation}
-.controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:13px}
-.primary{
- border:0;border-radius:14px;padding:14px 12px;color:white;font-weight:800;
- background:linear-gradient(135deg,#927cff,#5b80ff);
- box-shadow:0 7px 20px #6555e733
-}
-.primary:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
-.secondary{padding:13px 10px}
-.dice-face{font-size:18px;margin-right:5px}
-.hint{text-align:center;color:var(--muted);font-size:12px;margin:11px 0 0;min-height:18px}
-.bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:13px}
-.mini-title{font-size:13px;font-weight:800;margin-bottom:8px}
-.rules{font-size:12px;line-height:1.75;color:var(--muted)}
-.rules b{color:#f4f6ff}
-.history{font-size:12px;color:var(--muted);line-height:1.7;max-height:100px;overflow:auto}
-footer{text-align:center;color:#71809e;font-size:11px;padding:16px 0 7px}
-.overlay{
- position:fixed;inset:0;z-index:10;background:#050917c9;display:none;
- align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(8px)
-}
-.overlay.show{display:flex}
-.modal{
- width:min(100%,360px);background:#17223a;border:1px solid #ffffff20;
- border-radius:23px;padding:25px;text-align:center;box-shadow:0 20px 80px #0008
-}
-.trophy{font-size:53px}.modal h2{margin:8px 0}.modal p{color:var(--muted);font-size:14px}
-.modal .primary{width:100%;margin-top:12px}
-@media(max-width:520px){
- .app{padding:10px}.panel{padding:12px;border-radius:17px}
- .brand{gap:8px}.logo{width:40px;height:40px}
- .players{gap:5px}.player{padding:9px 2px}
- .player-name{font-size:10px}.player-meta{font-size:10px}
- .board-wrap{padding:5px;border-radius:16px}
- .bottom-grid{grid-template-columns:1fr}
- header .topbtn{padding:9px;font-size:12px}
-}
+body{margin:0;background:#101526;color:#fff;font-family:Arial,sans-serif;text-align:center}
+header{padding:16px 8px;background:#19233d}
+h1{margin:0;color:#70f0d0;font-size:27px}
+header p{color:#bdc8e4;margin:7px 0 0;font-size:13px}
+.controls{display:flex;gap:8px;justify-content:center;align-items:center;flex-wrap:wrap;padding:12px}
+button,select{padding:11px 14px;border:0;border-radius:10px;font-size:14px;font-weight:bold}
+button{background:#70f0d0;color:#122033;cursor:pointer}
+button:disabled{opacity:.45}
+select{background:#253250;color:white}
+#status{max-width:620px;width:94%;margin:0 auto;padding:12px;background:#202d49;border-radius:10px;min-height:42px}
+#dice{font-size:35px;min-width:65px;background:white;color:#17213a;border-radius:12px;padding:5px}
+#boardWrap{width:min(95vw,620px);margin:0 auto 12px}
+canvas{display:block;width:100%;height:auto;border-radius:16px;touch-action:manipulation;box-shadow:0 10px 30px #0006}
+#help{font-size:12px;color:#b7c4df;padding:0 15px 20px;line-height:1.7}
 </style>
 </head>
 <body>
-<div class="app">
 <header>
- <div class="brand">
-  <div class="logo">🎲</div>
-  <div><h1>PlayZone<span style="color:#a594ff">Hub</span> Ludo</h1>
-  <div class="subtitle">Roll the dice. Make your move. Win the game.</div></div>
- </div>
- <button class="topbtn" id="soundBtn" aria-label="Toggle sound">🔊 Sound</button>
+<h1>🎲 PlayZoneHub Ludo</h1>
+<p>Classic Ludo • Computer AI • Local Multiplayer</p>
 </header>
 
-<section class="panel">
- <div class="setup">
-  <div class="field"><label for="mode">GAME MODE</label>
-   <select id="mode">
-    <option value="ai">Play vs Computer</option>
-    <option value="local">Local Multiplayer</option>
-   </select>
-  </div>
-  <div class="field"><label for="count">PLAYERS</label>
-   <select id="count">
-    <option value="2">2 Players</option>
-    <option value="3">3 Players</option>
-    <option value="4" selected>4 Players</option>
-   </select>
-  </div>
- </div>
- <div class="players" id="players"></div>
- <div class="status">
-  <div class="status-icon" id="turnIcon">🎲</div>
-  <div><strong id="statusTitle">Red's turn</strong><small id="statusText">Roll a 6 to bring a token onto the board.</small></div>
- </div>
-</section>
-
-<section class="board-wrap">
- <canvas id="board" width="720" height="720" aria-label="Interactive Ludo board"></canvas>
-</section>
-
 <div class="controls">
- <button class="primary" id="rollBtn"><span class="dice-face" id="diceFace">⚄</span> ROLL DICE</button>
- <button class="secondary" id="restartBtn">↻ New Game</button>
-</div>
-<div class="hint" id="hint">Tap ROLL DICE to start.</div>
-
-<div class="bottom-grid">
- <section class="panel">
-  <div class="mini-title">HOW TO PLAY</div>
-  <div class="rules">
-   <b>1.</b> Roll a 6 to leave the base.<br>
-   <b>2.</b> Tap one of your highlighted tokens to move.<br>
-   <b>3.</b> Land on an opponent to send them home.<br>
-   <b>4.</b> Star squares are safe from captures.<br>
-   <b>5.</b> Reach the centre with all four tokens to win.<br>
-   <b>6.</b> Roll a 6 or capture an opponent for an extra turn.
-  </div>
- </section>
- <section class="panel">
-  <div class="mini-title">GAME LOG</div>
-  <div class="history" id="history">Welcome to PlayZoneHub Ludo!</div>
-  <div class="rules" style="margin-top:9px">Best win: <b id="bestScore">None yet</b></div>
- </section>
-</div>
-<footer>PlayZoneHub • Free to play • No downloads required</footer>
+<select id="mode">
+<option value="ai">Play vs Computer</option>
+<option value="local">Local Multiplayer</option>
+</select>
+<select id="count">
+<option value="2">2 Players</option>
+<option value="3">3 Players</option>
+<option value="4">4 Players</option>
+</select>
+<button id="restart">↻ New Game</button>
+<button id="sound">🔊 Sound ON</button>
 </div>
 
-<div class="overlay" id="overlay">
- <div class="modal">
-  <div class="trophy">🏆</div><h2 id="winTitle">Red wins!</h2>
-  <p id="winText">Congratulations!</p>
-  <button class="primary" id="playAgain">PLAY AGAIN</button>
- </div>
+<div id="status">Roll the dice to start!</div>
+<div class="controls">
+<div id="dice">⚀</div>
+<button id="roll">🎲 Roll Dice</button>
 </div>
+<div id="boardWrap"><canvas id="board" width="600" height="600"></canvas></div>
+<div id="help">Roll a 6 to bring a token out. Tap a highlighted token to move it.<br>Reach home with an exact roll. Capture opponents to send their tokens back!</div>
 
 <script>
 "use strict";
 
-/* PlayZoneHub Ludo
-   One-file game: no libraries, assets, or network services required. */
+const canvas=document.getElementById("board");
+const ctx=canvas.getContext("2d");
+const $=id=>document.getElementById(id);
+const C=["#ed414b","#26b9ef","#46bd72","#f3bd36"];
+const DARK=["#a3212c","#126d96","#217b49","#9c7412"];
+const N=["Red","Blue","Green","Yellow"];
+const START=[0,13,26,39];
+const SAFE=[0,8,13,21,26,34,39,47];
+const D=["⚀","⚁","⚂","⚃","⚄","⚅"];
+const BASE=[{x:112,y:112},{x:488,y:112},{x:488,y:488},{x:112,y:488}];
+const OFF=[[-29,-29],[29,-29],[-29,29],[29,29]];
+let players=[],turn=0,dice=0,legal=[],waiting=false;
+let gameOver=false,rolling=false,animating=false,soundOn=true;
+let aiTimer=null,turnVersion=0;
 
-const $ = id => document.getElementById(id);
-const canvas = $("board");
-const ctx = canvas.getContext("2d");
-
-const COLORS = [
- {name:"Red",hex:"#ff5268",dark:"#b92743",light:"#ffb3bd",start:0},
- {name:"Green",hex:"#24d69b",dark:"#087e5b",light:"#a7f3d7",start:13},
- {name:"Yellow",hex:"#ffc94f",dark:"#a66b08",light:"#fff0a8",start:26},
- {name:"Blue",hex:"#58a0ff",dark:"#245bb8",light:"#b8d7ff",start:39}
-];
-
-const SAFE = new Set([0,8,13,21,26,34,39,47]);
-const FINISH = 57; // 0..51 main track, 52..56 home lane, 57 centre.
-const TRACK_COUNT = 52;
-const BASES = [
- {x:160,y:160},{x:560,y:160},{x:560,y:560},{x:160,y:560}
-];
-const BASE_TOKEN_OFFSETS = [
- [[-42,-42],[42,-42],[-42,42],[42,42]],
- [[-42,-42],[42,-42],[-42,42],[42,42]],
- [[-42,-42],[42,-42],[-42,42],[42,42]],
- [[-42,-42],[42,-42],[-42,42],[42,42]]
-];
-
-let state;
-let soundOn = true;
-let audioContext = null;
-let animFrame = 0;
-let lastTap = 0;
-
-function makePlayers(){
- const mode = $("mode").value;
- const count = Number($("count").value);
- return COLORS.slice(0,count).map((c,i)=>({
-  ...c,
-  isAI: mode==="ai" && i>0,
-  tokens:[-1,-1,-1,-1],
-  finished:0
+function initPlayers(){
+ const count=Number($("count").value);
+ const mode=$("mode").value;
+ players=Array.from({length:count},(_,i)=>({
+  color:i,name:N[i],ai:mode==="ai"&&i!==0,tokens:[-1,-1,-1,-1]
  }));
 }
-function newGame(){
- cancelAnimationFrame(animFrame);
- state={
-  players:makePlayers(),turn:0,dice:0,rolling:false,
-  canMove:[],waiting:false,gameOver:false,extraTurn:false,
-  log:[],animations:[],moveCount:0
- };
- $("overlay").classList.remove("show");
- $("diceFace").textContent="⚄";
- log("New game started.");
- renderPlayers();
- updateStatus("Roll the dice to begin.","A six brings a token out of its base.");
- draw();
- maybeAI();
+function msg(s){$("status").textContent=s}
+function track(i){
+ const a=-Math.PI/2+(i%52)*Math.PI*2/52;
+ return {x:300+190*Math.cos(a),y:300+190*Math.sin(a)};
 }
-function log(message){
- state.log.unshift(message);
- state.log=state.log.slice(0,8);
- $("history").innerHTML=state.log.map(x=>escapeHTML(x)).join("<br>");
+function lane(p,step){
+ const q=track(START[p]+51);
+ const t=(step-50)/7;
+ return {x:q.x+(300-q.x)*t,y:q.y+(300-q.y)*t};
 }
-function escapeHTML(s){
- return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function pos(p,t){
+ const v=players[p].tokens[t];
+ if(v<0)return {x:BASE[p].x+OFF[t][0],y:BASE[p].y+OFF[t][1]};
+ if(v<=50)return track(START[p]+v);
+ if(v<=56)return lane(p,v);
+ return {x:300,y:300};
 }
-function current(){return state.players[state.turn]}
-function playerName(p){return p.name+(p.isAI?" (CPU)":"")}
-function updateStatus(title,subtitle){
- $("statusTitle").textContent=title;
- $("statusText").textContent=subtitle;
- $("turnIcon").textContent=state.dice ? ["⚀","⚁","⚂","⚃","⚄","⚅"][state.dice-1] : "🎲";
- $("rollBtn").disabled=state.rolling||state.waiting||state.gameOver;
+function moves(p,d){
+ const a=[];
+ players[p].tokens.forEach((v,i)=>{
+  if(v===57)return;
+  if(v===-1&&d===6)a.push(i);
+  else if(v>=0&&v+d<=57)a.push(i);
+ });
+ return a;
 }
-function renderPlayers(){
- $("players").innerHTML=state.players.map((p,i)=>`
- <div class="player ${i===state.turn?"active":""}">
-  <div><span class="dot" style="background:${p.hex}"></span><span class="player-name">${p.name}${p.isAI?" CPU":""}</span></div>
-  <div class="player-meta">${p.finished}/4 home</div>
- </div>`).join("");
- const best=localStorage.getItem("pzh-ludo-best");
- $("bestScore").textContent=best||"None yet";
-}
-function playSound(freq=440,duration=.09,type="sine"){
+function tone(freq=550,dur=.08){
  if(!soundOn)return;
  try{
-  audioContext ||= new (window.AudioContext||window.webkitAudioContext)();
-  const o=audioContext.createOscillator(),g=audioContext.createGain();
-  o.type=type;o.frequency.value=freq;
-  g.gain.setValueAtTime(.045,audioContext.currentTime);
-  g.gain.exponentialRampToValueAtTime(.001,audioContext.currentTime+duration);
-  o.connect(g);g.connect(audioContext.destination);
-  o.start();o.stop(audioContext.currentTime+duration);
+  const A=window.AudioContext||window.webkitAudioContext;
+  const ac=new A(),o=ac.createOscillator(),g=ac.createGain();
+  o.frequency.value=freq;g.gain.value=.05;
+  o.connect(g);g.connect(ac.destination);o.start();
+  g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+dur);
+  o.stop(ac.currentTime+dur);o.onended=()=>ac.close();
  }catch(e){}
 }
-function randDice(){return Math.floor(Math.random()*6)+1}
-const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
-
-async function rollDice(){
- if(state.rolling||state.waiting||state.gameOver)return;
- state.rolling=true;state.canMove=[];
- $("rollBtn").disabled=true;
- updateStatus(playerName(current())+" is rolling…","Good luck!");
- playSound(340,.06,"triangle");
- for(let i=0;i<9;i++){
-  $("diceFace").textContent=["⚀","⚁","⚂","⚃","⚄","⚅"][randDice()-1];
-  await sleep(55+i*8);
- }
- state.dice=randDice();
- $("diceFace").textContent=["⚀","⚁","⚂","⚃","⚄","⚅"][state.dice-1];
- state.rolling=false;
- playSound(520+state.dice*55,.15,"triangle");
- const p=current();
- state.canMove=legalMoves(p,state.dice);
- draw();
- if(!state.canMove.length){
-  log(`${p.name} rolled ${state.dice}. No legal moves.`);
-  updateStatus(`${p.name} rolled ${state.dice}`,"No legal move. Turn passes.");
-  state.waiting=true;
-  await sleep(750);
-  state.waiting=false;
-  if(state.dice===6){
-   state.dice=0;
-   updateStatus(`${p.name} gets another roll!`,"A six grants an extra turn.");
-  }else{
-   nextTurn();
-   return;
-  }
-  maybeAI();
-  return;
- }
- state.waiting=true;
- updateStatus(`${p.name} rolled ${state.dice}!`,
-   p.isAI?"Computer is choosing a token…":"Tap one of the glowing tokens.");
- if(p.isAI){
-  await sleep(650);
-  const token=chooseAIMove(p,state.canMove);
-  if(token!==null) await moveToken(state.turn,token);
- }else{
-  state.waiting=true;
-  $("rollBtn").disabled=true;
-  $("hint").textContent="Tap a glowing token to move it.";
- }
- draw();
+function circle(x,y,r,fill,stroke="#fff",lw=2){
+ ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);
+ ctx.fillStyle=fill;ctx.fill();
+ if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw;ctx.stroke()}
 }
-function legalMoves(p,dice){
- const moves=[];
- p.tokens.forEach((step,i)=>{
-  if(step===FINISH)return;
-  if(step===-1){
-   if(dice===6)moves.push(i);
-  }else if(step+dice<=FINISH){
-   moves.push(i);
+function round(x,y,w,h,r,fill){
+ ctx.beginPath();ctx.roundRect(x,y,w,h,r);ctx.fillStyle=fill;ctx.fill();
+}
+function drawBase(p){
+ const b=BASE[p],c=C[p];
+ round(b.x-77,b.y-77,154,154,20,c);
+ round(b.x-61,b.y-61,122,122,15,"#fff");
+ ctx.fillStyle=DARK[p];ctx.font="bold 13px Arial";ctx.textAlign="center";
+ ctx.fillText(N[p].toUpperCase(),b.x,b.y-39);
+ for(let t=0;t<4;t++){
+  circle(b.x+OFF[t][0],b.y+OFF[t][1],17,"#e9e9e9",c,3);
+ }
+}
+function draw(){
+ ctx.clearRect(0,0,600,600);
+ ctx.fillStyle="#f5f0e4";ctx.fillRect(0,0,600,600);
+ players.forEach(p=>drawBase(p));
+
+ // Track spaces
+ for(let i=0;i<52;i++){
+  const q=track(i);
+  circle(q.x,q.y,SAFE.includes(i)?13:10,SAFE.includes(i)?"#d8e4e7":"#fff","#c3c9ca",1.5);
+  if(SAFE.includes(i)){
+   ctx.fillStyle="#637c83";ctx.font="bold 12px Arial";ctx.textAlign="center";
+   ctx.textBaseline="middle";ctx.fillText("★",q.x,q.y);
+  }
+ }
+ START.forEach((i,p)=>circle(track(i).x,track(i).y,6,C[p],null));
+
+ // Home lanes
+ players.forEach(p=>{
+  for(let k=1;k<=6;k++){
+   const q=lane(p.color,50+k);
+   circle(q.x,q.y,10,C[p.color],"#fff",1);
   }
  });
- return moves;
-}
-function globalPosition(playerIndex,step){
- if(step<0||step>51)return null;
- return (COLORS[playerIndex].start+step)%TRACK_COUNT;
-}
-function isSafeGlobal(g){return SAFE.has(g)}
-function tokenAtGlobal(g,excludePlayer,excludeToken){
- const result=[];
- state.players.forEach((p,pi)=>p.tokens.forEach((step,ti)=>{
-  if(pi===excludePlayer&&ti===excludeToken)return;
-  if(step>=0&&step<=51&&globalPosition(pi,step)===g)result.push({pi,ti});
+ circle(300,300,36,"#17233b","#fff",3);
+ ctx.fillStyle="#fff";ctx.font="bold 12px Arial";ctx.textAlign="center";
+ ctx.textBaseline="middle";ctx.fillText("HOME",300,300);
+
+ // Tokens
+ players.forEach((p,pi)=>p.tokens.forEach((v,ti)=>{
+  const q=pos(pi,ti),active=pi===turn&&waiting&&legal.includes(ti);
+  if(active)circle(q.x,q.y,24,"#fff",null);
+  circle(q.x,q.y,17,C[pi],active?"#17233b":"#fff",3);
+  circle(q.x-4,q.y-5,5,"#ffffff88",null);
+  ctx.fillStyle=pi===3?"#493500":"#fff";
+  ctx.font="bold 12px Arial";ctx.textAlign="center";ctx.textBaseline="middle";
+  ctx.fillText(v===57?"✓":String(ti+1),q.x,q.y+4);
  }));
- return result;
 }
-function getCaptures(pi,ti,dice){
- const p=state.players[pi],step=p.tokens[ti];
- let targetGlobal;
- if(step===-1)targetGlobal=p.start;
- else if(step+dice<=51)targetGlobal=globalPosition(pi,step+dice);
- else return [];
- if(isSafeGlobal(targetGlobal))return [];
- return tokenAtGlobal(targetGlobal,pi,ti).filter(t=>t.pi!==pi);
+function controls(){
+ $("roll").disabled=gameOver||waiting||rolling||animating||!!players[turn]?.ai;
+ $("dice").textContent=D[dice-1]||"⚀";
 }
-function chooseAIMove(p,moves){
- // Prioritise finishing, captures, leaving base, progress, then safe landings.
- let best=null,bestScore=-Infinity;
- for(const ti of moves){
-  const step=p.tokens[ti];
-  let score=0;
-  if(step===-1)score+=25;
-  else score+=step*1.5;
-  if(step>=0&&step+state.dice===FINISH)score+=1000;
-  score+=getCaptures(state.turn,ti,state.dice).length*160;
-  const targetStep=step===-1?0:step+state.dice;
-  if(targetStep>=0&&targetStep<=51){
-   const g=globalPosition(state.turn,targetStep);
-   if(isSafeGlobal(g))score+=18;
-   const enemyNear=state.players.some((op,oi)=>oi!==state.turn&&op.tokens.some(s=>{
-    if(s<0||s>51)return false;
-    const d=(g-globalPosition(oi,s)+52)%52;
-    return d>=1&&d<=6;
-   }));
-   if(enemyNear)score-=5;
+function beginTurn(){
+ turnVersion++;
+ const version=turnVersion;
+ waiting=false;legal=[];dice=0;
+ draw();controls();
+ if(gameOver)return;
+ if(players[turn].ai){
+  msg(N[turn]+" computer is thinking…");
+  aiTimer=setTimeout(()=>{if(version===turnVersion&&!gameOver)rollDice(true)},650);
+ }else msg(N[turn]+"'s turn. Roll the dice.");
+}
+function newGame(){
+ clearTimeout(aiTimer);
+ turn=0;dice=0;legal=[];waiting=false;
+ gameOver=false;rolling=false;animating=false;
+ initPlayers();beginTurn();
+}
+function rollDice(fromAI=false){
+ if(gameOver||waiting||rolling||animating)return;
+ if(players[turn].ai&&!fromAI)return;
+ rolling=true;controls();
+ let count=0;
+ const id=setInterval(()=>{
+  dice=1+Math.floor(Math.random()*6);
+  $("dice").textContent=D[dice-1];
+  count++;
+  if(count>=8){
+   clearInterval(id);rolling=false;
+   finishRoll(fromAI);
   }
-  score+=Math.random()*5;
-  if(score>bestScore){bestScore=score;best=ti}
+ },65);
+}
+function finishRoll(fromAI){
+ if(gameOver)return;
+ tone(620);
+ legal=moves(turn,dice);
+ if(!legal.length){
+  msg(N[turn]+" rolled "+dice+". No legal move.");
+  controls();
+  const extra=dice===6;
+  setTimeout(()=>{if(!gameOver)nextTurn(extra)},850);
+  return;
  }
- return best;
+ waiting=true;
+ draw();controls();
+ if(players[turn].ai){
+  msg(N[turn]+" computer rolled "+dice+"…");
+  setTimeout(()=>chooseAI(),450);
+ }else msg(N[turn]+" rolled "+dice+". Tap a highlighted token.");
 }
-function nextTurn(){
- state.dice=0;state.canMove=[];state.waiting=false;state.extraTurn=false;
- state.turn=(state.turn+1)%state.players.length;
- renderPlayers();
- updateStatus(playerName(current())+"'s turn","Roll the dice to move.");
- $("hint").textContent=current().isAI?"Computer's turn…":"Tap ROLL DICE to play.";
- draw();
- maybeAI();
-}
-async function moveToken(pi,ti){
- if(state.gameOver||pi!==state.turn||!state.canMove.includes(ti)||!state.waiting)return;
- const p=state.players[pi],old=p.tokens[ti],dice=state.dice;
- state.waiting=true;state.canMove=[];
- $("rollBtn").disabled=true;
- if(old===-1){
-  p.tokens[ti]=0;
-  log(`${p.name} brought a token out.`);
-  playSound(580,.12);
- }else{
-  for(let step=old+1;step<=old+dice;step++){
-   p.tokens[ti]=step;
-   draw();
-   playSound(300+step*5,.025,"triangle");
-   await sleep(95);
+function chooseAI(){
+ if(gameOver||!waiting||!players[turn].ai)return;
+ const p=players[turn];let best=legal[0],bestScore=-Infinity;
+ for(const t of legal){
+  const v=p.tokens[t],n=v===-1?0:v+dice;
+  let score=Math.random()*3+n*.2;
+  if(n===57)score+=100;
+  if(v===-1)score+=12;
+  if(n<=50){
+   const sq=(START[turn]+n)%52;
+   if(!SAFE.includes(sq)){
+    for(let j=0;j<players.length;j++){
+     if(j===turn)continue;
+     for(const ov of players[j].tokens){
+      if(ov>=0&&ov<=50&&(START[j]+ov)%52===sq)score+=35;
+     }
+    }
+   }
   }
+  if(score>bestScore){bestScore=score;best=t}
  }
- state.moveCount++;
- let captured=0;
- if(p.tokens[ti]>=0&&p.tokens[ti]<=51){
-  const g=globalPosition(pi,p.tokens[ti]);
-  if(!isSafeGlobal(g)){
-   state.players.forEach((op,oi)=>{
-    if(oi===pi)return;
-    op.tokens.forEach((s,oti)=>{
-     if(s>=0&&s<=51&&globalPosition(oi,s)===g){
-      op.tokens[oti]=-1;captured++;
+ moveToken(best);
+}
+function nextTurn(extra){
+ if(gameOver)return;
+ if(!extra)turn=(turn+1)%players.length;
+ beginTurn();
+}
+function animateMove(p,t,oldV,newV,done){
+ animating=true;controls();
+ const start=performance.now();
+ const duration=Math.min(550,Math.max(180,Math.abs(newV-Math.max(0,oldV))*25));
+ function frame(now){
+  const k=Math.min(1,(now-start)/duration);
+  const eased=1-Math.pow(1-k,3);
+  draw();
+  const v=Math.max(0,oldV)+(newV-Math.max(0,oldV))*eased;
+  let q;
+  if(v<=50)q=track(START[p]+Math.floor(v));
+  else if(v<=56)q=lane(p,v);
+  else q={x:300,y:300};
+  circle(q.x,q.y,20,C[p],"#fff",3);
+  ctx.fillStyle="#fff";ctx.font="bold 12px Arial";ctx.textAlign="center";
+  ctx.textBaseline="middle";ctx.fillText(String(t+1),q.x,q.y);
+  if(k<1)requestAnimationFrame(frame);
+  else{animating=false;done()}
+ }
+ requestAnimationFrame(frame);
+}
+function moveToken(t){
+ if(gameOver||!waiting||!legal.includes(t))return;
+ waiting=false;
+ const p=turn,oldV=players[p].tokens[t],rolled=dice;
+ const newV=oldV===-1?0:oldV+rolled;
+ players[p].tokens[t]=newV;
+ let captured=false;
+ if(newV>=0&&newV<=50){
+  const sq=(START[p]+newV)%52;
+  if(!SAFE.includes(sq)){
+   players.forEach((op,j)=>{
+    if(j===p)return;
+    op.tokens.forEach((v,k)=>{
+     if(v>=0&&v<=50&&(START[j]+v)%52===sq){
+      op.tokens[k]=-1;captured=true;
      }
     });
    });
   }
  }
- if(captured){
-  log(`${p.name} captured ${captured} token${captured>1?"s":""}!`);
-  playSound(210,.25,"sawtooth");
- }
- if(p.tokens[ti]===FINISH){
-  p.finished++;
-  log(`${p.name} brought a token home!`);
-  playSound(760,.2);
- }
- renderPlayers();draw();
- if(p.finished===4){
-  endGame(pi);return;
- }
- const six=dice===6;
- if(captured||six){
-  state.dice=0;state.waiting=false;state.canMove=[];
-  renderPlayers();
-  updateStatus(`${p.name} gets another turn!`,captured?"Capture bonus.":"Six bonus.");
-  $("hint").textContent="Roll again.";
-  $("rollBtn").disabled=false;
-  await sleep(250);
-  maybeAI();
- }else{
-  nextTurn();
- }
+ tone(760);
+ animateMove(p,t,oldV,newV,()=>{
+  draw();
+  if(players[p].tokens.every(v=>v===57)){
+   gameOver=true;msg("🏆 "+N[p]+" wins!");
+   controls();tone(950,.25);return;
+  }
+  if(captured)msg(N[p]+" captured an opponent token!");
+  else if(newV===57)msg(N[p]+" brought a token home!");
+  else msg(N[p]+" moved token "+(t+1)+".");
+  controls();
+  setTimeout(()=>nextTurn(rolled===6),600);
+ });
 }
-function endGame(pi){
- state.gameOver=true;state.waiting=false;
- const p=state.players[pi];
- log(`${p.name} wins the game!`);
- $("winTitle").textContent=p.name+" wins!";
- $("winText").textContent=`${p.name} brought all four tokens home in ${state.moveCount} moves.`;
- const old=Number(localStorage.getItem("pzh-ludo-best")||0);
- if(!old||state.moveCount<old){
-  localStorage.setItem("pzh-ludo-best",String(state.moveCount));
-  $("bestScore").textContent=state.moveCount+" moves";
- }
- $("overlay").classList.add("show");
- updateStatus(p.name+" wins!","Start a new game to play again.");
- renderPlayers();draw();playSound(880,.35);
+function tapBoard(e){
+ if(gameOver||!waiting||players[turn].ai||animating)return;
+ const r=canvas.getBoundingClientRect();
+ const x=(e.clientX-r.left)*600/r.width;
+ const y=(e.clientY-r.top)*600/r.height;
+ let chosen=-1,dist=Infinity;
+ legal.forEach(t=>{
+  const q=pos(turn,t),d=Math.hypot(q.x-x,q.y-y);
+  if(d<dist){dist=d;chosen=t}
+ });
+ if(chosen>=0&&dist<36)moveToken(chosen);
 }
-async function maybeAI(){
- if(state.gameOver)return;
- const p=current();
- if(!p.isAI)return;
- $("rollBtn").disabled=true;
- await sleep(500);
- if(state.gameOver||current()!==p)return;
- await rollDice();
-}
-$("rollBtn").addEventListener("click",rollDice);
-$("restartBtn").addEventListener("click",newGame);
-$("playAgain").addEventListener("click",newGame);
+canvas.addEventListener("pointerdown",tapBoard);
+$("roll").addEventListener("click",()=>rollDice(false));
+$("restart").addEventListener("click",newGame);
 $("mode").addEventListener("change",newGame);
 $("count").addEventListener("change",newGame);
-$("soundBtn").addEventListener("click",()=>{
+$("sound").addEventListener("click",()=>{
  soundOn=!soundOn;
- $("soundBtn").textContent=soundOn?"🔊 Sound":"🔇 Muted";
- if(soundOn)playSound(500,.08);
+ $("sound").textContent=soundOn?"🔊 Sound ON":"🔇 Sound OFF";
+ if(soundOn)tone();
 });
-canvas.addEventListener("click",handleBoardTap);
-canvas.addEventListener("touchend",e=>{
- // Touchend is handled by click in modern browsers. This prevents double-moves.
-}, {passive:true});
-
-function handleBoardTap(e){
- if(state.gameOver||state.rolling)return;
- const rect=canvas.getBoundingClientRect();
- const x=(e.clientX-rect.left)*canvas.width/rect.width;
- const y=(e.clientY-rect.top)*canvas.height/rect.height;
- const p=current();
- if(p.isAI)return;
- const hits=tokenPositions().filter(t=>t.pi===state.turn&&state.canMove.includes(t.ti));
- let nearest=null,dist=Infinity;
- hits.forEach(t=>{
-  const d=Math.hypot(t.x-x,t.y-y);
-  if(d<dist){dist=d;nearest=t}
- });
- if(nearest&&dist<42){
-  moveToken(nearest.pi,nearest.ti);
- }
-}
-
-/* The board uses a circular 52-space route so all 52 logical moves
-   are distinct, with four coloured bases and radial home lanes. */
-function trackPoint(i){
- const angle=(-Math.PI/2)+(Math.PI*2*i/TRACK_COUNT);
- const radius=223;
- return {x:360+Math.cos(angle)*radius,y:360+Math.sin(angle)*radius};
-}
-function lanePoint(pi,j){
- const a=(-Math.PI/2)+(Math.PI*2*COLORS[pi].start/TRACK_COUNT);
- const ux=Math.cos(a),uy=Math.sin(a);
- const r=200-j*29;
- return {x:360+ux*r,y:360+uy*r};
-}
-function basePoint(pi,ti){
- const b=BASES[pi],o=BASE_TOKEN_OFFSETS[pi][ti];
- return {x:b.x+o[0],y:b.y+o[1]};
-}
-function tokenPoint(pi,ti){
- const step=state.players[pi].tokens[ti];
- if(step===-1)return basePoint(pi,ti);
- if(step===FINISH){
-  const offsets=[[-12,-12],[12,-12],[-12,12],[12,12]];
-  return {x:360+offsets[ti][0],y:360+offsets[ti][1]};
- }
- if(step>=52)return lanePoint(pi,step-52);
- const g=globalPosition(pi,step),p=trackPoint(g);
- // Spread stacked tokens so every token remains tappable.
- const same=[];
- state.players.forEach((op,oi)=>op.tokens.forEach((s,oti)=>{
-  if(s>=0&&s<=51&&globalPosition(oi,s)===g)same.push({pi:oi,ti:oti});
- }));
- const idx=same.findIndex(t=>t.pi===pi&&t.ti===ti);
- if(same.length>1){
-  const angle=2*Math.PI*idx/same.length;
-  p.x+=Math.cos(angle)*10;p.y+=Math.sin(angle)*10;
- }
- return p;
-}
-function tokenPositions(){
- const out=[];
- state.players.forEach((p,pi)=>p.tokens.forEach((_,ti)=>{
-  const pos=tokenPoint(pi,ti);out.push({pi,ti,...pos});
- }));
- return out;
-}
-function roundedRect(x,y,w,h,r,fill,stroke){
- ctx.beginPath();ctx.roundRect(x,y,w,h,r);
- if(fill){ctx.fillStyle=fill;ctx.fill()}
- if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=2;ctx.stroke()}
-}
-function draw(){
- const w=canvas.width,h=canvas.height;
- ctx.clearRect(0,0,w,h);
- ctx.save();
- // Soft board surface
- roundedRect(8,8,704,704,34,"#101a2e","#34415e");
- // Four corner home zones
- const zones=[
-  {x:30,y:30,w:225,h:225,pi:0},
-  {x:465,y:30,w:225,h:225,pi:1},
-  {x:465,y:465,w:225,h:225,pi:2},
-  {x:30,y:465,w:225,h:225,pi:3}
- ];
- zones.forEach(z=>{
-  const c=COLORS[z.pi];
-  roundedRect(z.x,z.y,z.w,z.h,25,c.hex+"20",c.hex+"88");
-  roundedRect(z.x+20,z.y+20,z.w-40,z.h-40,19,"#0c1426b8",c.hex+"45");
-  ctx
+newGame();
+</script>
+</body>
+</html>
